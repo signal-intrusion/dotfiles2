@@ -1,5 +1,5 @@
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 #
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -10,7 +10,12 @@ export ZSH=/Users/chrisplummer/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="spaceship"
+
+SPACESHIP_RUBY_SHOW=false
+SPACESHIP_PACKAGE_SHOW=false
+SPACESHIP_DIR_TRUNC=3
+SPACESHIP_DIR_TRUNC_PREFIX=…/
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -58,6 +63,8 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# spaceship settings
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -76,7 +83,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -95,14 +102,44 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$PATH:$HOME/dev_utils/dev_db"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
 
 eval "$(rbenv init -)"
 
 eval $(thefuck --alias)
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+
+# export PATH=~/.local/bin:$PATH
+export PATH=~/Library/Python/3.7/bin:$PATH
 
 # Go development
 export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/sls.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS='--extended'
+
+for dir in /usr/local/Cellar/libpq/* ; do
+  PATH="${dir}/bin/:${PATH}"
+done
+
+export PGUSER="pillpack_development"
+export PGHOST=localhost
+
+
+alias ctags="`brew --prefix`/bin/ctags"
+export PATH="/usr/local/opt/icu4c/bin:$PATH"
+export PATH="/usr/local/opt/icu4c/sbin:$PATH"
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+export GEMFURY_DEPLOY_TOKEN=1HnEb6-juuUkIWpSSTI07OosAH7aYEBTWA
+
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/chrisplummer/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/chrisplummer/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
