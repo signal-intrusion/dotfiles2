@@ -7,20 +7,27 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'rking/ag.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'kien/ctrlp.vim'
+Plugin 'craigemery/vim-autotag'
+" Plugin 'rking/ag.vim'
+" Plugin 'mileszs/ack.vim'
+" Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'reedes/vim-pencil'
 Plugin 'chriskempson/base16-vim'
 " Plugin 'majutsushi/tagbar'
-Plugin 'tpope/vim-fugitive'
 Plugin 'jeetsukumaran/vim-buffergator'
+
+" git
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 " highlighting
 Plugin 'timakro/vim-searchant'
 " Plugin 'ivyl/vim-bling'
+
+" linting
+Plugin 'w0rp/ale'
 
 " Marks
 Plugin 'kshenoy/vim-signature'
@@ -39,13 +46,11 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'valloric/MatchTagAlways'
 
 "Syntax
-" Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'digitaltoad/vim-pug'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'posva/vim-vue'
 Plugin 'kchmck/vim-coffee-script'
-" Plugin 'vim-syntastic/syntastic'
 
 " HTML5 syntax
 Plugin 'othree/html5.vim'
@@ -55,32 +60,33 @@ Plugin 'othree/yajs.vim'
 Plugin 'HerringtonDarkholme/yats.vim'
 Plugin 'othree/es.next.syntax.vim'
 Plugin 'https://github.com/othree/javascript-libraries-syntax.vim.git'
-" Plugin 'mtscout6/syntastic-local-eslint.vim'
-" Plugin 'maxmellon/vim-jsx-pretty'
 
 " Rails
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 
 "Snippets
 Plugin 'honza/vim-snippets'
 Plugin 'firegoby/SASS-Snippets'
-" Plugin 'evidens/vim-twig'
 Plugin 'joukevandermaas/vim-ember-hbs'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-commentary'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'tpope/vim-commentary'
+Plugin 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/loremipsum'
 Plugin 'SirVer/ultisnips'
 
 "docblocks
-" Plugin 'tobyS/vmustache'       "hbs
 Plugin 'heavenshell/vim-jsdoc' "js
 
 " Plugin 'luochen1990/rainbow'
 " Plugin 'eapache/rainbow_parentheses.vim'
 " Plugin 'kien/rainbow_parentheses.vim'
 " Plugin 'junegunn/rainbow_parentheses.vim'
+
+" Plugin '/usr/local/opt/fzf'
+Plugin 'junegunn/fzf.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -90,22 +96,26 @@ let mapleader = ","
 let g:mapleader = ","
 noremap \ ,
 
+" fuzzyfind
+set rtp+=/usr/local/opt/fzf
+
 " ------ colors, lines, and numbers ------ "
 
 set t_Co=256
-let base16colorspace=256
+" let base16colorspace=256
+" set termguicolors
 set background=dark
 " colorscheme base16-gruvbox-dark-pale
+" colorscheme base16-gruvbox-dark-pale
 colorscheme base16-eighties
-" set termguicolors
-let g:airline_theme="base16"
+let g:airline_theme="base16_eighties"
 set nrformats=
 set hlsearch
 
-if exists('$TMUX')
-  " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  " let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
+" if exists('$TMUX')
+"   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" endif
 
 "rainbow parentheses
 " au VimEnter * RainbowParentheses
@@ -143,6 +153,9 @@ let g:buffergator_show_full_directory_path = 0
 let g:buffergator_split_size = 80
 let g:buffergator_vsplit_size = 80
 
+" split preview window below
+set splitbelow
+
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <leader>qb :bp <BAR> bd #<CR>
@@ -151,22 +164,6 @@ nmap <leader>qb :bp <BAR> bd #<CR>
 " nmap <leader>bl :ls<CR>
 nmap gl :bnext<CR>
 nmap gh :bprevious<CR>
-
-" syntastic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-
-" let g:syntastic_javascript_eslint_exe = '[ -f $(npm bin)/eslint  ] && $(npm bin)/eslint || eslint'
-" let g:syntastic_javascript_eslint_exe = 'npm run eslint --'
-" let g:syntastic_javascript_eslint_exe = '$(npm bin)/eslint --ignore-path .gitignore'
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_debug = 3
 
 " parens
 " let g:AutoPairsMapSpace = 1
@@ -181,8 +178,8 @@ set pastetoggle=<F7>
 
 " set cursorline
 
-:highlight Search cterm=NONE ctermfg=Black ctermbg=LightGray gui=NONE guifg=Black guibg=LightGray
-:highlight SearchCurrent cterm=NONE ctermfg=Black ctermbg=Yellow gui=NONE guifg=Black guibg=Yellow
+" :highlight Search cterm=NONE ctermfg=Black ctermbg=LightGray gui=NONE guifg=Black guibg=LightGray
+" :highlight SearchCurrent cterm=NONE ctermfg=Black ctermbg=Yellow gui=NONE guifg=Black guibg=Yellow
 " :highlight LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 " hi Search guibg=Blue guifg=Red
 
@@ -214,6 +211,24 @@ if $TERM_PROGRAM =~ "iTerm"
   set guicursor+=i:blinkwait0
 endif
 
+" nerdtree colors
+" :hi Directory guifg=#FF0000 ctermfg=red
+" let g:ale_set_highlights = 0
+highlight ALEWarningSign term=underline cterm=underline ctermfg=1 gui=underline guifg=Yellow
+highlight ALEErrorSign term=underline cterm=underline ctermfg=1 gui=underline guifg=Red
+" highlight ALEErrorSign ctermbg=NONE ctermfg=red
+" highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
+let g:ale_linters_explicit = 1
+let g:ale_fix_on_save = 1
+
+let g:ale_fixers = {
+  \ 'typescript': ['prettier'],
+  \ 'vue': ['prettier'],
+  \ 'javascript': ['prettier'],
+  \ 'css': ['prettier'],
+\ }
+
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
   let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
@@ -226,7 +241,7 @@ endif
 " let g:bling_color_bg = 'orange'
 
 " Tagbar
-nmap <leader>tt :TagbarToggle<CR>
+" nmap <leader>tt :TagbarToggle<CR>
 
 "set markdown syntax
 autocmd BufRead,BufNew *.md set filetype=markdown
@@ -244,6 +259,27 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue
 " autocmd FileType vue syntax sync fromstart
 " autocmd BufRead,BufNew *.html set filetype=vue
 
+let g:ft = ''
+fu! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        let syn = tolower(syn)
+        exe 'setf '.syn
+      endif
+    endif
+  endif
+endfu
+fu! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    g:ft
+  endif
+endfu
+
 " match parens
 " let g:mta_use_matchparen_group = 1
 
@@ -252,7 +288,7 @@ let g:used_javascript_libs = 'vue,chai,underscore'
 
 nmap <leader>n :NERDTreeToggle<CR> :NERDTreeMirror<CR>
 let g:NERDSpaceDelims = 1
-let g:NERDTreeWinSize = 40
+let g:NERDTreeWinSize = 60
 
 let g:jsdoc_input_description = 1
 let g:jsdoc_underscore_private = 1
@@ -298,11 +334,11 @@ augroup pencil
 augroup END
 
 " Remap snippets and ycm
-let g:ycm_key_list_select_completion = ['<C-s>', '<C-Space>']
-let g:ycm_key_list_previous = ['<C-n>']
-let g:mustache_abbreviations = 1
-let g:clang_user_options='|| exit 0'
-let g:ycm_echo_current_diagnostic = 0
+" let g:ycm_key_list_select_completion = ['<C-s>', '<C-Space>']
+" let g:ycm_key_list_previous = ['<C-n>']
+" let g:mustache_abbreviations = 1
+" let g:clang_user_options='|| exit 0'
+" let g:ycm_echo_current_diagnostic = 0
 "set shortmess+=c
 
 let g:UltiSnipsSnippetsDir="~/.vim/my-snippets/UltiSnips"
@@ -315,6 +351,9 @@ autocmd BufNewFile,BufRead *.html :UltiSnipsAddFiletypes javascript.html
 autocmd BufNewFile,BufRead *.vue :UltiSnipsAddFiletypes javascript.html
 autocmd BufNewFile,BufRead *.js.coffee :UltiSnipsAddFiletypes coffee
 autocmd BufNewFile,BufRead *.rb :UltiSnipsAddFiletypes ruby.yardoc
+
+" to make vim ruby faster
+let g:ruby_path = system('echo $HOME/.rbenv/shims')
 
 "Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -341,8 +380,10 @@ set lazyredraw
 set norelativenumber
 set nocursorline
 
-"Ag shortcut
-nnoremap <leader>a :Ag!
+"FZF shortcuts
+nnoremap <leader>a :Ag<Enter>
+nnoremap <C-p> :GFiles<Enter>
+nnoremap <C-t> :Files<Enter>
 
 "retab shortcut
 " nnoremap <leader>r :retab <CR>
