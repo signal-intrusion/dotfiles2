@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
-	# name = Christopher Plummer
-	# email = christopher.plummer@pillpack.com
+	name = signal-intrusion
+	email = christopher.plummer@pillpack.com
+        # email = plumcakes@mac.com
 
 [branch]
 	autosetuprebase = always
