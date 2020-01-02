@@ -108,6 +108,7 @@ set background=dark
 " colorscheme base16-gruvbox-dark-pale
 " colorscheme base16-gruvbox-dark-pale
 colorscheme base16-eighties
+" reenable for base-16
 let g:airline_theme="base16_eighties"
 set nrformats=
 set hlsearch
@@ -181,7 +182,10 @@ set pastetoggle=<F7>
 " :highlight Search cterm=NONE ctermfg=Black ctermbg=LightGray gui=NONE guifg=Black guibg=LightGray
 " :highlight SearchCurrent cterm=NONE ctermfg=Black ctermbg=Yellow gui=NONE guifg=Black guibg=Yellow
 " :highlight LineNr cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-" hi Search guibg=Blue guifg=Red
+"
+" reenable for base-16
+hi Search guibg=Blue guifg=Red
+hi Search cterm=NONE ctermfg=0 ctermbg=2
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.swo
 
@@ -213,14 +217,32 @@ endif
 
 " nerdtree colors
 " :hi Directory guifg=#FF0000 ctermfg=red
-" let g:ale_set_highlights = 0
-highlight ALEWarningSign term=underline cterm=underline ctermfg=1 gui=underline guifg=Yellow
-highlight ALEErrorSign term=underline cterm=underline ctermfg=1 gui=underline guifg=Red
-" highlight ALEErrorSign ctermbg=NONE ctermfg=red
-" highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
 
 let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
+let g:ale_set_signs = 1
+let g:ale_set_highlights = 1
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 1
+
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+
+highlight ALEError cterm=underline ctermbg=NONE ctermfg=1
+highlight ALEWarning cterm=underline ctermbg=NONE ctermfg=3
+highlight ALEInfo ctermbg=4 ctermfg=NONE
+
+highlight ALEErrorSign ctermbg=10 ctermfg=9
+highlight ALEWarningSign ctermbg=10 ctermfg=3
+
+" highlight ALEErrorLine cterm=underline ctermbg=NONE ctermfg=9
+" highlight ALEWarningLine cterm=underline ctermbg=NONE ctermfg=3
+
+" highlight ALEVirtualTextError ctermbg=green ctermfg=blue
+" highlight ALEVirtualTextWarning ctermbg=green ctermfg=blue
 
 let g:ale_fixers = {
   \ 'typescript': ['prettier'],
@@ -363,8 +385,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 " let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
 " nnoremap <buffer> <leader>p :call pdv#DocumentCurrentLine()<CR>
 
-"Editor Config
-let g:EditorConfig_core_mode = 'external_command'
+" Editor Config
+" let g:EditorConfig_core_mode = 'external_command'
 
 "folds
 set foldenable

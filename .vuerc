@@ -1,0 +1,37 @@
+{
+  "useTaobaoRegistry": false,
+  "packageManager": "yarn",
+  "presets": {
+    "vue-version1": {
+      "useConfigFiles": true,
+      "plugins": {
+        "@vue/cli-plugin-babel": {},
+        "@vue/cli-plugin-eslint": {
+          "config": "airbnb",
+          "lintOn": [
+            "save"
+          ]
+        },
+        "@vue/cli-plugin-unit-jest": {},
+        "@vue/cli-plugin-e2e-cypress": {}
+      },
+      "router": true,
+      "vuex": true
+    },
+    "watwat": {
+      "useConfigFiles": true,
+      "plugins": {
+        "@vue/cli-plugin-babel": {},
+        "@vue/cli-plugin-eslint": {
+          "config": "standard",
+          "lintOn": [
+            "save"
+          ]
+        },
+        "@vue/cli-plugin-unit-mocha": {},
+        "@vue/cli-plugin-e2e-nightwatch": {}
+      },
+      "vuex": true
+    }
+  }
+}

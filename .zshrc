@@ -12,11 +12,47 @@ export ZSH=/Users/chrisplummer/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="spaceship"
 
-SPACESHIP_RUBY_SHOW=false
+SPACESHIP_RUBY_SHOW=true
 SPACESHIP_PACKAGE_SHOW=false
-SPACESHIP_DIR_TRUNC=3
+SPACESHIP_DIR_TRUNC=4
 SPACESHIP_DIR_TRUNC_PREFIX=…/
 
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  # hg            # Mercurial section (hg_branch  + hg_status)
+  package       # Package version
+  node          # Node.js section
+  ruby          # Ruby section
+  # elm           # Elm section
+  elixir        # Elixir section
+  xcode         # Xcode section
+  # swift         # Swift section
+  golang        # Go section
+  # php           # PHP section
+  rust          # Rust section
+  # haskell       # Haskell Stack section
+  # julia         # Julia section
+  docker        # Docker section
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  # conda         # conda virtualenv section
+  pyenv         # Pyenv section
+  # dotnet        # .NET section
+  # ember         # Ember.js section
+  # kubecontext   # Kubectl context section
+  # terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -94,34 +130,14 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PGDATA=~/pgsql/data
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="$PATH:$HOME/dev_utils/dev_db"
 
 eval "$(rbenv init -)"
-
 eval $(thefuck --alias)
-
-# export PATH=~/.local/bin:$PATH
-export PATH=~/Library/Python/3.7/bin:$PATH
-
-# Go development
-export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
-export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/chrisplummer/sites/scriptchase-ui/node_modules/tabtab/.completions/sls.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS='--extended'
@@ -130,16 +146,6 @@ for dir in /usr/local/Cellar/libpq/* ; do
   PATH="${dir}/bin/:${PATH}"
 done
 
-export PGUSER="pillpack_development"
-export PGHOST=localhost
-
-
 alias ctags="`brew --prefix`/bin/ctags"
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
-export GEMFURY_DEPLOY_TOKEN=1HnEb6-juuUkIWpSSTI07OosAH7aYEBTWA
-
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/chrisplummer/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/chrisplummer/.config/yarn/global/node_modules/tabtab/.completions/slss.zsh
